@@ -2,9 +2,9 @@
 SELECT DISTINCT "City" FROM shipment_orders;
 
 -- total selling price and profit for all orders
-SELECT "Order Id",
-       ROUND(SUM("Quantity" * "Selling Price")::numeric, 2) AS "Total Selling Price",
-       ROUND(SUM("Quantity" * ("Selling Price" - "cost price"))::numeric, 2) AS "Total Profit"
+SELECT "Order Id", 
+       SUM("Total Sales") AS "Total Selling Price",
+       SUM("Quantity" * ("Selling Price" - "cost price")) AS "Total Profit"
 FROM shipment_orders
 GROUP BY "Order Id"
 ORDER BY "Total Profit" DESC;
