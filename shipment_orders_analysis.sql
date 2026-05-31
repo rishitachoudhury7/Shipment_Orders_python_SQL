@@ -15,8 +15,9 @@ WHERE "Category" = 'Technology' AND "Ship Mode" = 'Second Class'
 ORDER BY "Order Date";
 
 -- average order value
-SELECT ROUND(AVG("Quantity" * "Selling Price")::numeric, 2) AS AOV
+SELECT ROUND(AVG("Total Sales")) AS Average_Total_Sales
 FROM shipment_orders;
+
 
 -- city with highest total quantity
 SELECT "City", SUM("Quantity") AS total_quantity
