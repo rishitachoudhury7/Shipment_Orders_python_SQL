@@ -7,26 +7,80 @@ SELECT "Order Id",
 FROM shipment_orders
 GROUP BY "Order Id"
 ORDER BY "Total Profit" DESC;
+--Output first 10
+Order Id,Total Selling Price,Total Profit
+2698,130406.4,21746.4
+6827,84875,14875
+9040,122141.5,12811.5
+4278,61789,8309
+166,62668.8,7868.8
+7667,46656,7776
+9640,53105,7215
+4298,53969.5,6779.5
+7244,38586.6,6726.6
+9057,28243.6,5143.6
 
 -- technology orders shipped via second class
 SELECT "Order Id", "Order Date" FROM shipment_orders
 WHERE "Category" = 'Technology' AND "Ship Mode" = 'Second Class'
 ORDER BY "Order Date";
+--Output first 5
+[
+  {
+    "Order Id": 5421,
+    "Order Date": "2022-01-01 00:00:00"
+  },
+  {
+    "Order Id": 1088,
+    "Order Date": "2022-01-04 00:00:00"
+  },
+  {
+    "Order Id": 3272,
+    "Order Date": "2022-01-05 00:00:00"
+  },
+  {
+    "Order Id": 3527,
+    "Order Date": "2022-01-06 00:00:00"
+  },
+  {
+    "Order Id": 9950,
+    "Order Date": "2022-01-07 00:00:00"
+  }]
 
+       
 -- average order value
 SELECT ROUND(AVG("Total Sales")) AS Average_Total_Sales
 FROM shipment_orders;
+--Output
+average_total_sales
+1109
 
 -- city with highest total quantity
 SELECT "City", SUM("Quantity") AS total_quantity FROM shipment_orders
 GROUP BY "City"
 ORDER BY total_quantity DESC;
+--Output first 5
+City,total_quantity
+New York City,3417
+Los Angeles,2879
+Philadelphia,1981
+San Francisco,1935
+Seattle,1590
+
 
 -- rank orders in each region by quantity
 SELECT "Order Id", "Region", "Quantity",
        DENSE_RANK() OVER (PARTITION BY "Region" ORDER BY "Quantity" DESC) AS rnk
 FROM shipment_orders
 ORDER BY "Region", rnk;
+--Output First 5
+Order Id,Region,Quantity,rnk
+9516,Central,14,1
+8075,Central,14,1
+7388,Central,14,1
+1046,Central,14,1
+661,Central,14,1
+
 
 
 -- highest sales month per category
